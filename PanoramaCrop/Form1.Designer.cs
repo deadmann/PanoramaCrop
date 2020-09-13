@@ -284,6 +284,7 @@
             // 
             // btnExecute
             // 
+            this.btnExecute.Enabled = false;
             this.btnExecute.Location = new System.Drawing.Point(567, 12);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(146, 23);

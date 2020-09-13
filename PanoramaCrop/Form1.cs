@@ -47,6 +47,15 @@ namespace PanoramaCrop
             //picturePreview.Image = _img;
 
             CalculateAndShow();
+            CheckActivityState();
+        }
+
+        private void CheckActivityState()
+        {
+            if (_img != null && !string.IsNullOrWhiteSpace(_outputDirectory))
+                btnExecute.Enabled = true;
+            else
+                btnExecute.Enabled = false;
         }
 
         private void rbFindResolution_CheckedChanged(object sender, EventArgs e)
@@ -123,13 +132,16 @@ namespace PanoramaCrop
                         decimal hh = th / 2;
 
                         rectangles = new List<Rectangle>();
-                        decimal px = 0;
-                        for (decimal x = recWholeCropArea.Left; x <= recWholeCropArea.Right /*+telorance?*/; px = x, x += rw)
+                        
+                        decimal py = 0;
+                        for (decimal y = recWholeCropArea.Top;
+                            y <= recWholeCropArea.Bottom /*+telorance?*/;
+                            py = y, y += rh)
                         {
-                            decimal py = 0;
-                            for (decimal y = recWholeCropArea.Top;
-                                y <= recWholeCropArea.Bottom /*+telorance?*/;
-                                py = y, y += rh)
+                            decimal px = 0;
+                            for (decimal x = recWholeCropArea.Left;
+                                x <= recWholeCropArea.Right /*+telorance?*/;
+                                px = x, x += rw)
                             {
                                 if (x == recWholeCropArea.Left || y == recWholeCropArea.Top)
                                     continue;
@@ -242,6 +254,8 @@ namespace PanoramaCrop
 
             _outputDirectory = folderBrowserDialog1.SelectedPath;
             PreviewSampleOutputDirectory();
+
+            CheckActivityState();
         }
 
         private void txtPrefix_TextChanged(object sender, EventArgs e)
@@ -277,6 +291,7 @@ namespace PanoramaCrop
 
         private void btnExecute_Click(object sender, EventArgs e)
         {
+            //Local Function
             string GetFileName(int i)
             {
                 return $@"{_outputDirectory}\{_prefix}{i + 1}{_suffix}.jpg";

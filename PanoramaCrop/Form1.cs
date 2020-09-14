@@ -132,15 +132,15 @@ namespace PanoramaCrop
                         decimal hh = th / 2;
 
                         rectangles = new List<Rectangle>();
-                        
+
                         decimal py = 0;
                         for (decimal y = recWholeCropArea.Top;
-                            y <= recWholeCropArea.Bottom /*+telorance?*/;
+                            Math.Floor(y) <= recWholeCropArea.Bottom /*+telorance?*/;
                             py = y, y += rh)
                         {
                             decimal px = 0;
                             for (decimal x = recWholeCropArea.Left;
-                                x <= recWholeCropArea.Right /*+telorance?*/;
+                                Math.Floor(x) <= recWholeCropArea.Right /*+telorance?*/;
                                 px = x, x += rw)
                             {
                                 if (x == recWholeCropArea.Left || y == recWholeCropArea.Top)
@@ -167,13 +167,12 @@ namespace PanoramaCrop
                         decimal hh = th / 2;
 
                         rectangles = new List<Rectangle>();
-                        decimal px = 0;
-                        for (decimal x = recWholeCropArea.Left; x <= recWholeCropArea.Right /*+telorance?*/; px = x, x += rw)
+
+                        decimal py = 0;
+                        for (decimal y = recWholeCropArea.Top; Math.Floor(y) <= recWholeCropArea.Bottom /*+telorance?*/; py = y, y += rh)
                         {
-                            decimal py = 0;
-                            for (decimal y = recWholeCropArea.Top;
-                                y <= recWholeCropArea.Bottom /*+telorance?*/;
-                                py = y, y += rh)
+                            decimal px = 0;
+                            for (decimal x = recWholeCropArea.Left; Math.Floor(x) <= recWholeCropArea.Right /*+telorance?*/; px = x, x += rw)
                             {
                                 if (x == recWholeCropArea.Left || y == recWholeCropArea.Top)
                                     continue;
